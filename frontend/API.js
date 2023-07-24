@@ -1,6 +1,6 @@
 const url = 'http://localhost:7000/api/Creyente'
 
-export const getClientes = async()=>{
+export const getCreyentes = async()=>{
     try {
         const clientes = await fetch(url);
         const datosClientes = await clientes.json();
@@ -11,11 +11,11 @@ export const getClientes = async()=>{
     }
 }
 
-export const nuevaCategoria = async (categoria) => {
+export const nuevaCreyente = async (creyente) => {
     try {
         await fetch (url,{
             method:'POST',
-            body:JSON.stringify(categoria),
+            body:JSON.stringify(creyente),
             headers:{
                 'Content-Type':'application/json'
             }
@@ -27,7 +27,7 @@ export const nuevaCategoria = async (categoria) => {
 };
 
 
-export const deleteCategory = async (id) => {
+export const deleteCreyente = async (id) => {
     try {
         await fetch(`${url}/${id}`,{
             method:'DELETE',
@@ -43,7 +43,7 @@ export const deleteCategory = async (id) => {
 
 
 
-export const editarCategory = async (category,id) => {
+export const editarCreyente = async (category,id) => {
     try {
         await fetch(`${url}/${id}`,{
             method:'PUT',
@@ -61,7 +61,7 @@ export const editarCategory = async (category,id) => {
 
 
 
-export const obtenerCategory = async (id) => {
+export const obtenerCreyente = async (id) => {
  
 };
 

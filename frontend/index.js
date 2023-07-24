@@ -1,4 +1,4 @@
-import { getClientes,nuevaCategoria,deleteCategory,editarCategory } from "./API.js";
+import { getCreyentes,nuevaCreyente,deleteCreyente,editarCreyente } from "./API.js";
 
 addEventListener('DOMContentLoaded',()=>{
     cargaClientes();
@@ -7,19 +7,20 @@ const tablaClientes = document.querySelector("#categories")
 
 
 async function cargaClientes(){
-    const clientes = await getClientes();
+    const clientes = await getCreyentes();
     console.log(clientes);
     clientes.forEach(element=>{
-        const {CategoriaID ,CategoriaNombre, Descripcion ,Imagen} = element
+        const {ididentificacion ,nombres, email ,NroCelular,direccion} = element
         tablaClientes.innerHTML +=`
                           
         <tr>
-        <th scope="row">${CategoriaID}</th>
-        <td>${CategoriaNombre}</td>
-        <td>${Descripcion}</td>
-        <td>${Imagen}</td>
-        <td> <button class="btn btn-danger delete" id="${CategoriaID}">Delete</button></td>
-        <td><button type="button" class="btn btn-warning update" data-bs-toggle="modal" id="${CategoriaID}"  data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" >update</button></td>
+        <th scope="row">${ididentificacion}</th>
+        <td>${nombres}</td>
+        <td>${email}</td>
+        <td>${NroCelular}</td>
+        <td>${direccion}</td>
+        <td> <button class="btn btn-danger delete" id="${ididentificacion}">Delete</button></td>
+        <td><button type="button" class="btn btn-warning update" data-bs-toggle="modal" id="${ididentificacion}"  data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" >update</button></td>
       </tr>
       `
     })
@@ -31,7 +32,7 @@ tablaClientes.addEventListener('click',(e)=>{
         borrar(id);
     }else if(e.target.classList.contains('update')){
         const id=e.target.getAttribute('id');
-        editarCategory(id);
+        editarCreyente(id);
     }
 })
 
@@ -39,7 +40,7 @@ const borrar=(id)=>{
     const confir = confirm("desea eliminarlo");
     if(confir){
         console.log("uno");
-        deleteCategory(id);
+        deleteCreyente(id);
     }
 }
 
@@ -57,19 +58,19 @@ formInsert.addEventListener('submit',(e)=>{
 
 const insert=(e)=>{
     e.preventDefault();
-    const CategoriaNombre=document.querySelector('#name').value;
-    const Descripcion=document.querySelector('#description').value;
-    const Imagen=document.querySelector('#image').value;
+    const nombres=document.querySelector('#name').value;
+    const email=document.querySelector('#description').value;
+    const NroCelular=document.querySelector('#image').value;
     const categoria = {
-        CategoriaNombre,
-        Descripcion,
-        Imagen,
+        nombres,
+        email,
+        NroCelular,
     }
     console.log(categoria);
 
     if(validation(categoria)){
         alert("todos los datos son obligatorios")
-    }return nuevaCategoria(categoria);
+    }return nuevaCreyente(categoria);
 }
 function validation(Objecto){
     return !Object.values(Objecto).every(element=>element != '')
@@ -84,9 +85,9 @@ function validation(Objecto){
 
 const getCliente=async(id)=>{
     const data=await categoria(id);
-    const {CategoriaID ,CategoriaNombre, Descripcion ,Imagen} =data[0];
+    const {ididentificacion ,nombres, email ,NroCelular} =data[0];
     console.log(data);
-    console.log(CategoriaID);
+    console.log(ididentificacion);
     document.querySelector('#idUpdate')
     document.querySelector('#CategoriaNombreUpdate')
     document.querySelector('#DescripcionUpdate')
